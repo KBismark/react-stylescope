@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "jsx": "react",
+      "allowJs": true,
+      "declaration": true,
+      "target": "es6",
+      "module": "ES2022",
+      "noImplicitAny": true,
+      "outDir": "dist",
+      "rootDir": ".",
+      "lib": [
+        "es6",
+        "dom"
+      ],
+      "typeRoots": [
+        "node_modules/@types"
+      ]
+    },
+    "include": [
+      "lib","index.tsx"
+    ]
+  }
+  
