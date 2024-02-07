@@ -1,12 +1,34 @@
 #! /usr/bin/env node
 
-import {appendFileSync} from 'fs';
+import {appendFileSync,readFileSync,writeFileSync} from 'fs';
 import {join} from 'path'
+import {createHash} from 'crypto';
 
 const argv = process.argv.slice(2);
 if (argv.length !== 2) {
     process.exit(1);
 }
+
+let uniqueDeviceId = '';
+try {
+    uniqueDeviceId = readFileSync('../device.txt','utf8');
+} catch (error) {
+    uniqueDeviceId = '=10001'
+}
+if(uniqueDeviceId == '=10001'){
+    try {
+        uniqueDeviceId = crypto
+          .createHash("shake256", { outputLength: 3 })
+          .update(`${Math.random()}${Date.now()}${Math.random()}`)
+          .digest("hex");
+      } catch (error) {
+        //If algorithm not supported by platform, generate randomly
+        uniqueDeviceId = `${Math.random()}`.slice(2, 7)+''+`${Math.random()}`.slice(2, 5);
+        uniqueDeviceId = Buffer.from(uniqueDeviceId).toString('base64').replace(/=/g,'')
+      }
+    writeFileSync('../device.txt',uniqueDeviceId);
+}
+
 const [source,rootDirectory] = argv;
 if(source === '--setup' && rootDirectory === 'react'){
     const working_directory = process.cwd();

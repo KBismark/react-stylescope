@@ -1,3 +1,4 @@
+import {readFileSync} from 'fs';
 import { excapeRegexChars } from "./helpers";
 
 export const nonBreakingCharactersObject = {
@@ -12,7 +13,16 @@ export const nonBreakingCharactersObject = {
     ],
 };
 
-export const deviceAssignedName = 'abcd'
+export let deviceAssignedName = '';
+
+try {
+    // Read unique device id
+    deviceAssignedName = readFileSync('../device.txt','utf8');
+} catch (error) {
+     //If algorithm not supported by platform, generate randomly
+     deviceAssignedName = `${Math.random()}`.slice(2, 7)+''+`${Math.random()}`.slice(2, 5);
+     deviceAssignedName = Buffer.from(deviceAssignedName).toString('base64').replace(/=/g,'')
+}
 
 // RegExp to match scoped style sheets
 export const mustPreceed = `(?<=(${nonBreakingCharactersObject.all.map(excapeRegexChars).join('|')}|[^\S])useScopedStyleSheet\\s*\\(\\s*{)`;
