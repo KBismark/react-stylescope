@@ -44,7 +44,7 @@ if(source === '--setup' && rootDirectory === 'react'){
     configInjections.push({
         test:/(\.ts|\.js|\.cjs|\.mjs|\.tsx|\.jsx)$/,
         exclude:/node_modules/,
-        loader: require.resolve('react-scoped-styles/dist/lib/loader')
+        loader: require.resolve('react-stylescope/dist/lib/loader')
     });
     // Export a shimmed function to extract and return all injected configs plus actual configs
     module.exports = function(){

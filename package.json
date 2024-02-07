@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
-  "files": ["/dist"],
+  "files": ["/dist","/device.txt"],
   "bin": {
-    "scopedstyles": "bin/cli.js"
+    "stylescope": "bin/cli.js",
+    "react-stylescope": "bin/cli.js"
   },
   "directories": {
     "lib": "dist"
