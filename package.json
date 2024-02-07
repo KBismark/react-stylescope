@@ -29,6 +29,9 @@
   "peerDependencies": {
     "react": "^18.2.0"
   },
-  "author": "",
+  "author": {
+    "name": "Bismark Yamoah",
+    "email": "bismarkkwabenayamoah@gmail.com"
+  },
   "license": "MIT"
 }
