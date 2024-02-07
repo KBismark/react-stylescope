@@ -9,9 +9,11 @@ if (argv.length !== 2) {
     process.exit(1);
 }
 
+const working_directory = process.cwd();
+const node_modules = `${working_directory}/node_modules`;
 let uniqueDeviceId = '';
 try {
-    uniqueDeviceId = readFileSync('../device.txt','utf8');
+    uniqueDeviceId = readFileSync(join(node_modules,'/react-stylescope/device.txt'),'utf8');
 } catch (error) {
     uniqueDeviceId = '=10001'
 }
@@ -26,13 +28,12 @@ if(uniqueDeviceId == '=10001'){
         uniqueDeviceId = `${Math.random()}`.slice(2, 7)+''+`${Math.random()}`.slice(2, 5);
         uniqueDeviceId = Buffer.from(uniqueDeviceId).toString('base64').replace(/=/g,'')
       }
-    writeFileSync('../device.txt',uniqueDeviceId);
+    writeFileSync(join(node_modules,'/react-stylescope/device.txt'),uniqueDeviceId);
 }
 
 const [source,rootDirectory] = argv;
 if(source === '--setup' && rootDirectory === 'react'){
-    const working_directory = process.cwd();
-    const webpack_config_file = join(working_directory,'/node_modules/react-scripts/config/webpack.config.js');
+    const webpack_config_file = join(node_modules,'/react-scripts/config/webpack.config.js');
     const webpack_config_mod = `
     // Keep actual config
     var actualConfig = module.exports;

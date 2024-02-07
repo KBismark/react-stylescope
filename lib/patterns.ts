@@ -1,4 +1,5 @@
 import {readFileSync} from 'fs';
+import {join} from 'path'
 import { excapeRegexChars } from "./helpers";
 
 export const nonBreakingCharactersObject = {
@@ -15,9 +16,12 @@ export const nonBreakingCharactersObject = {
 
 export let deviceAssignedName = '';
 
+const working_directory = process.cwd();
+const node_modules = `${working_directory}/node_modules`;
+
 try {
     // Read unique device id
-    deviceAssignedName = readFileSync('../device.txt','utf8');
+    deviceAssignedName = readFileSync(join(node_modules,'/react-stylescope/device.txt'),'utf8');
 } catch (error) {
      //If algorithm not supported by platform, generate randomly
      deviceAssignedName = `${Math.random()}`.slice(2, 7)+''+`${Math.random()}`.slice(2, 5);
