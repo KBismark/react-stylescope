@@ -1,6 +1,6 @@
 {
   "name": "react-stylescope",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Component based styling for react. Write styles that are scoped to the components where they are created.",
   "main": "dist/index.js",
   "type": "module",
