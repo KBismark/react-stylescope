@@ -1,7 +1,7 @@
 {
   "name": "react-scoped-styles",
   "version": "0.0.1",
-  "description": "",
+  "description": "Component based styling for react. Write styles that are scoped to the components where they are created.",
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
