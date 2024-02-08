@@ -59,15 +59,17 @@ export function ParseScopedStyleSheet(content:string):string{
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `.s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
+                        ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
+                        ruleIdentifier = `.${ruleIdentifier}`
                        
                     }else if(ruleIdentifier.startsWith('#')){
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `#s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
+                        ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
+                        ruleIdentifier = `#${ruleIdentifier}`
 
                     }else{
                         variable = excapeRegexChars({
