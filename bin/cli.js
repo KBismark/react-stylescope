@@ -12,12 +12,13 @@ if (argv.length !== 2) {
 const working_directory = process.cwd();
 const node_modules = `${working_directory}/node_modules`;
 let uniqueDeviceId = '';
+let idUpdateSuccessful = false;
 try {
     uniqueDeviceId = readFileSync(join(node_modules,'/react-stylescope/device.txt'),'utf8');
 } catch (error) {
     uniqueDeviceId = '=10001'
 }
-if(uniqueDeviceId == '=10001'){
+if(uniqueDeviceId === '=10001'){
     try {
         uniqueDeviceId = crypto
           .createHash("shake256", { outputLength: 3 })
@@ -29,10 +30,11 @@ if(uniqueDeviceId == '=10001'){
         uniqueDeviceId = Buffer.from(uniqueDeviceId).toString('base64').replace(/=/g,'')
       }
     writeFileSync(join(node_modules,'/react-stylescope/device.txt'),uniqueDeviceId);
+    idUpdateSuccessful = true;
 }
 
 const [source,rootDirectory] = argv;
-if(source === '--setup' && rootDirectory === 'react'){
+if(source === '-setup' && rootDirectory === 'react'){
     const webpack_config_file = join(node_modules,'/react-scripts/config/webpack.config.js');
     const webpack_config_mod = `
     // Keep actual config
@@ -59,7 +61,15 @@ if(source === '--setup' && rootDirectory === 'react'){
 
     `;
     appendFileSync(webpack_config_file,webpack_config_mod);
+    console.log('\x1b[1mStylescope is setup successfuly for your react project\x1b[0m');
     process.exit(0);
+}
+else if(source === '-setup' && rootDirectory === 'device'){
+    if(idUpdateSuccessful){
+        console.log('\x1b[1mYour project id is updated\x1b[0m');
+    }else{
+        console.log('\x1b[1mYour project id is confirmed\x1b[0m');
+    }
 }
 
 process.exit(0);
