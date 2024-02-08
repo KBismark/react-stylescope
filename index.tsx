@@ -17,7 +17,9 @@ type MapReactCSSProperties<S> = {sheet:string;keys:{[K in keyof S]:string}}
  * @example
  * const App = ()=>{
  *      const [ theme, setTheme ] = useState('light')
- *      const scoped = useScopedName('App');
+ *      // Prevent regeneration of scoped name on re-render
+ *      const scoped = useMemo(()=>getScopedName('App'));
+ *      // Get keys and style sheet
  *      const { keys, sheet } = useScopedStyleSheet({
  *          '.container':{
  *              opacity: 0.9,
@@ -49,11 +51,12 @@ export function useScopedStyleSheet<S=any>(styleSheet:{[K in keyof S]:React.CSSP
  * 
  * @example 
  *  const App = ()=>{
- *      const scoped = useScopedName('App');
+ *      // Prevent regeneration of scoped name on re-render
+ *      const scoped = useMemo(()=>getScopedName('App'));
  *      // rest of your code...
  * }
  */
-export function useScopedName(name:string): string{
+export function getScopedName(name:string): string{
     if(!scopedNames[name] ){
         scopedNames[name] = leastNumber;
     }
