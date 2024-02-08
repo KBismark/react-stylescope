@@ -68,6 +68,8 @@ type ScopedStyleSheetProps = {
  * Renders a style element with your style sheet.    
  * @param props.styles Pass the style sheet to the styles prop
  */
-export function ScopedStyleSheet({styles}:ScopedStyleSheetProps):JSX.Element{
-    return <style>{styles}</style>
+export class ScopedStyleSheets extends React.Component<ScopedStyleSheetProps>{
+    render(): React.ReactNode {
+        return React.createElement("style", null, this.props.styles) as any
+    }
 }
