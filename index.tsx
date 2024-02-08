@@ -36,7 +36,7 @@ type MapReactCSSProperties<S> = {sheet:string;keys:{[K in keyof S]:string}}
  *      )
  * }
  */
-export function useScopedStyleSheet<S=any>(styleSheet:{[K in keyof S]:React.CSSProperties}|S,marker:'scoped'):MapReactCSSProperties<S>{
+export function useScopedStyleSheet<S=any>(styleSheet:{[K in keyof S]:React.CSSProperties}|{keys:any;sheet:any},marker:string):MapReactCSSProperties<S>{
     return styleSheet as any;
 }
 
@@ -57,7 +57,7 @@ export function useScopedName(name:string): string{
     if(!scopedNames[name] ){
         scopedNames[name] = leastNumber;
     }
-    return `${name}-${scopedNames[name]++}`;
+    return `${name}${scopedNames[name]++}`;
 }
 
 type ScopedStyleSheetProps = {
@@ -68,6 +68,6 @@ type ScopedStyleSheetProps = {
  * Renders a style element with your style sheet.    
  * @param props.styles Pass the style sheet to the styles prop
  */
-export function ScopedStyleSheet({styles}:ScopedStyleSheetProps):React.ReactNode{
+export function ScopedStyleSheet({styles}:ScopedStyleSheetProps):JSX.Element{
     return <style>{styles}</style>
 }

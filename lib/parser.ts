@@ -1,5 +1,5 @@
-import { excapeRegexChars } from "./helpers";
-import { commentsPattern, deviceAssignedName, dynamicInjectsPattern, individualRulePattern, randomString, ruleIdentifierHeadPattern, stringsWithoutTemplateLiterals, styleRulePattern, useScopedStyleSheetPattern } from "./patterns";
+import { excapeRegexChars } from "./helpers.js";
+import { commentsPattern, deviceAssignedName, dynamicInjectsPattern, individualRulePattern, randomString, ruleIdentifierHeadPattern, stringsWithoutTemplateLiterals, styleRulePattern, useScopedStyleSheetPattern } from "./patterns.js";
 
 export function ParseScopedStyleSheet(content:string):string{
     // Match all 'useScopedStyleSheet' blocks
@@ -59,14 +59,14 @@ export function ParseScopedStyleSheet(content:string):string{
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `.ss-${deviceAssignedName}-\${scoped}-${variable.slice(1)}`;
+                        ruleIdentifier = `.s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
                        
                     }else if(ruleIdentifier.startsWith('#')){
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `#ss-${deviceAssignedName}-\${scoped}-${variable.slice(1)}`;
+                        ruleIdentifier = `#s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
 
                     }else{
@@ -77,7 +77,7 @@ export function ParseScopedStyleSheet(content:string):string{
                     }
                     
                     // CSS rule start
-                    ruleLine = `${ruleIdentifier}:{`
+                    ruleLine = `${ruleIdentifier}{`
 
                     // Removes identifier head from rule set
                     ruleSet = ruleSet.replace(ruleIdentifierHeadPattern,'').replace(/(}\s*,)$/,',');
@@ -88,11 +88,15 @@ export function ParseScopedStyleSheet(content:string):string{
                     if(ruleMathes){
                         let ruleName:string;
                         let ruleValue:string;
+                        let value: string|string[]|null;
                         for(let i=0,l=ruleMathes.length;i<l;i++){
                             [ruleName,ruleValue] = ruleMathes[i].split(':');
 
                             // Remove string qoutes if any
-                            ruleName = ruleName.replace(/^("|')/,'').replace(/("|')$/,'');
+                            value = ruleName.match(stringsWithoutTemplateLiterals)
+                            if(value){
+                                ruleName = value[0].replace(/^("|')/,'').replace(/("|')$/,'');
+                            }
 
                             // Convert to a corresponding CSS rule name
                             ruleName = ruleName.replace(/[A-Z]/g,'-$&').toLowerCase();
@@ -103,7 +107,10 @@ export function ParseScopedStyleSheet(content:string):string{
                             }
                             else{
                                 // Remove string qoutes if any
-                                ruleValue = ruleValue.replace(/^("|')/,'').replace(/("|')$/,'');
+                                value = ruleValue.match(stringsWithoutTemplateLiterals);
+                                if(value){
+                                    ruleValue = value[0].replace(/^("|')/, '').replace(/("|')$/, '');
+                                }
                                 ruleValue = `${ruleValue};`
                             }
                             

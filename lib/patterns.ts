@@ -1,6 +1,6 @@
 import {readFileSync} from 'fs';
 import {join} from 'path'
-import { excapeRegexChars } from "./helpers";
+import { excapeRegexChars } from "./helpers.js";
 
 export const nonBreakingCharactersObject = {
     all: [
