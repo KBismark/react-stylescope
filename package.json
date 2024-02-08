@@ -19,8 +19,7 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "parse-ts": "node ./scripts/parseTS.js",
-    "version": "tsc && git add . && git commit -m \"New version build\"",
+    "version": "tslint -p tsconfig.json && git add . && git commit -m \"New version build\"",
     "postversion": "git push && git push --tags"
   },
   "devDependencies": {
