@@ -104,8 +104,9 @@ export function ParseScopedStyleSheet(content:string):string{
                             ruleName = ruleName.replace(/[A-Z]/g,'-$&').toLowerCase();
 
                             // Check for dynamic injection
-                            if(dynamicInjects[ruleValue]){
-                                ruleValue = dynamicInjects[ruleValue];
+                            value = ruleValue.match(/rand_str-[0-9.]+D=[0-9]+;/);
+                            if (value) {
+                                ruleValue = dynamicInjects[value[0]];
                             }
                             else{
                                 // Remove string qoutes if any
