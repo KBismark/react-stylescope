@@ -46,7 +46,7 @@ export const commentsPattern = /(\/\*(.*?)\*\/)|(\/\/(.*?)\n)/gs;
 // Style rules pattern
 export const styleRulePattern = /(?<=\s|[^\S])((('((?<=\\)'|[^'\n])*')|("((?<=\\)"|[^"\n])*"))\s*:\s*{.*?}\s*,)/gs;
 export const ruleIdentifierHeadPattern = /(?<=\s|[^\S])((('((?<=\\)'|[^'\n])*')|("((?<=\\)"|[^"\n])*"))\s*:\s*{)/gs;
-export const individualRulePattern = /((?<=\s|[^\S])(\S.*?\S*\s*:\s*\S.*?\S*))(?=\s*,)/gs;
+export const individualRulePattern = /((?<=\s|[^\S])(\S.*?\S*\s*:\s*((`((?<=\\)`|[^`])*`)|('((?<=\\)'|[^'\n])*')|("((?<=\\)"|[^"\n])*")|\S+)))(?=\s*,)/gs;
 // Random replacer
 export const random = `${Math.random()}${Math.random()}`
 
