@@ -92,7 +92,9 @@ export function ParseScopedStyleSheet(content:string):string{
                         let ruleValue:string;
                         let value: string|string[]|null;
                         for(let i=0,l=ruleMathes.length;i<l;i++){
-                            [ruleName,ruleValue] = ruleMathes[i].split(':');
+                            value = ruleMathes[i].split(':');
+                            ruleValue = value.pop();
+                            ruleName = value.join(':');
 
                             // Remove string qoutes if any
                             value = ruleName.match(stringsWithoutTemplateLiterals)
