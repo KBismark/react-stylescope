@@ -1,5 +1,9 @@
-import { excapeRegexChars } from "./helpers.js";
-import { commentsPattern, deviceAssignedName, dynamicInjectsPattern, individualRulePattern, randomString, ruleIdentifierHeadPattern, stringsWithoutTemplateLiterals, styleRulePattern, useScopedStyleSheetPattern } from "./patterns.js";
+import { excapeRegexChars } from "./helpers";
+import { 
+    commentsPattern, deviceAssignedName, dynamicInjectsPattern, 
+    individualRulePattern, randomString, ruleIdentifierHeadPattern, 
+    stringsWithoutTemplateLiterals, styleRulePattern, useScopedStyleSheetPattern 
+} from "./patterns";
 
 export function ParseScopedStyleSheet(content:string):string{
     // Match all 'useScopedStyleSheet' blocks
@@ -60,7 +64,9 @@ export function ParseScopedStyleSheet(content:string):string{
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
                         ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
+                        // Build keys object
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
+                        // Set as a class name
                         ruleIdentifier = `.${ruleIdentifier}`
                        
                     }else if(ruleIdentifier.startsWith('#')){
@@ -68,13 +74,17 @@ export function ParseScopedStyleSheet(content:string):string{
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
                         ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
-                        keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
+                        // Build keys object
+                        keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`;
+                         // Set as a id
                         ruleIdentifier = `#${ruleIdentifier}`
 
                     }else{
+                        // If not an id (#<identifier>) or class name (.<identifier>), leave as it is
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
+                         // Set as a class name
                         keyRefs = `${keyRefs}"${variable}":"${variable}",`
                     }
                     
@@ -116,6 +126,7 @@ export function ParseScopedStyleSheet(content:string):string{
                                 if(value){
                                     ruleValue = value[0].replace(/^("|')/, '').replace(/("|')$/, '');
                                 }
+                                // Add ending semi-colon required by css
                                 ruleValue = `${ruleValue};`
                             }
                             
@@ -123,16 +134,35 @@ export function ParseScopedStyleSheet(content:string):string{
                             ruleLine = `${ruleLine}${ruleName}:${ruleValue}`
                         }
                     }
+                    // End the rules set
+                    /**
+                     * At the momemnt, we have some 
+                     * 
+                     * .<identifier>{
+                     *     margin: 45px;
+                     * }
+                     * 
+                     * stored in `ruleLine`
+                     */
                     ruleLine = `${ruleLine}}`;
+
+                    // Add to style sheet
                     styleSheet = `${styleSheet}${ruleLine}`
                 } 
             }
             if(styleSheet){
+                /** 
+                 * Style sheet is a string that may contain dynamic JavaScript values 
+                 * inside string templates "${ some_dynamic value }". Enclose with (`)s
+                */ 
                 styleSheet = `\`${styleSheet}\``
             }
+            // End keys object
             keyRefs = `${keyRefs}}`
+            // Replace the style object in the code with derived object
             content = content.replace(matches[i],`sheet:${styleSheet},keys:${keyRefs}`);
         }
     }
+    // Return code for further processing by react.
     return content;
 }

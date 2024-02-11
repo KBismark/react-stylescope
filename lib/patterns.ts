@@ -1,6 +1,6 @@
 import {readFileSync} from 'fs';
 import {join} from 'path'
-import { excapeRegexChars } from "./helpers.js";
+import { excapeRegexChars } from "./helpers";
 
 export const nonBreakingCharactersObject = {
     all: [
@@ -14,11 +14,13 @@ export const nonBreakingCharactersObject = {
     ],
 };
 
-export let deviceAssignedName = '';
+
 
 const working_directory = process.cwd();
 const node_modules = `${working_directory}/node_modules`;
 
+// This is a unique string used with `scoped` name for the project
+export let deviceAssignedName = '';
 try {
     // Read unique device id
     deviceAssignedName = readFileSync(join(node_modules,'/react-stylescope/device.txt'),'utf8');
