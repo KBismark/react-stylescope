@@ -1,5 +1,5 @@
 export default {
     transform: {
-        "^.+\\.(ts|tsx)$": "ts-jest"
+        "^.+\\.(ts|tsx)$": "ts-jest" 
     }
 }
