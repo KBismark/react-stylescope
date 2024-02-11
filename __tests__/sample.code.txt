@@ -1,0 +1,64 @@
+
+type LoginInputProps = {
+    rightElement:boolean;leftElement:boolean;
+    name:string;storeId:string;providerId:string
+};
+
+function useLoginInputStyle({rightElement,leftElement,name,storeId,providerId}:LoginInputProps){
+
+    const primary = 'rgb(0,0,0)'; // Primary color
+
+    // Use react state store for component
+    const [credential,getLoginStore] = useStateStore<LoginFormStore|SignUpFormStore>({
+      providerId:providerId,
+      storeId:storeId,
+      watch: ['active']
+  })
+
+    const isActive = getLoginStore(store=>{
+       return store.active===name
+    });
+    
+    const color = primary;
+    /** 
+    * The variable name `scopped` must always be declared
+    */
+    const scoped = useMemo(()=>getScopedName('input'),[]);
+
+    // Create style sheet
+    const styles = useScopedStyleSheet({
+      '.container':{
+        fontSize: '17px',
+        marginBottom: '30px',
+        opacity: `${isActive?1:0.3}`, // Insert dynamic values with string templates
+        transitionProperty: 'opacity',
+        transitionDuration: '.7s',
+        transitionTimingFunction: 'ease',
+      },
+      '#inputContainer':{ 
+        display:'block',
+        alignItems:'center',
+        justifyContent:'center',
+        backgroundColor: 'rgba(137,137,137,0.15)',
+        borderRadius: '6px',
+        padding: `10px ${!rightElement?'10px':'2px'} 10px ${!leftElement?'10px':'2px'}`
+      },
+      '.input':{
+        backgroundColor: 'rgba(137,137,137,0)',
+        color: 'rgb(137,137,137)',
+        outline: 'none',
+        border: 'none',
+        fontSize: '17px',
+        width: '300px'
+      },
+      '.message':{
+        color: `${color}`,
+        marginBottom: '10px',
+        // opacity: `${isActive?1:0}`
+      }
+    },scoped)
+
+    return styles;
+  }
+
+
