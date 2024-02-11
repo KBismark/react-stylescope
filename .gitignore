@@ -3,7 +3,7 @@
 # parsed contents
 /dist
 /scripts
-
+/test.js
 
 # dependencies
 /node_modules
