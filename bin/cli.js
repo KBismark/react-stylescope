@@ -34,7 +34,7 @@ if(uniqueDeviceId === '=10001'){
 }
 
 const [source,rootDirectory] = argv;
-if(source === '-setup' && rootDirectory === 'react'){
+if(source === '--setup' && rootDirectory === 'react'){
     const webpack_config_file = join(node_modules,'/react-scripts/config/webpack.config.js');
     const webpack_config_mod = `
     // Keep actual config
@@ -64,7 +64,7 @@ if(source === '-setup' && rootDirectory === 'react'){
     console.log('\x1b[1mStylescope is setup successfuly for your react project\x1b[0m');
     process.exit(0);
 }
-else if(source === '-setup' && rootDirectory === 'device'){
+else if(source === '--setup' && rootDirectory === 'device'){
     if(idUpdateSuccessful){
         console.log('\x1b[1mYour project id is updated\x1b[0m');
     }else{

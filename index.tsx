@@ -7,7 +7,8 @@ const leastNumber = -99999999;
 
 type MapReactCSSProperties<S> = {sheet:string;keys:{[K in keyof S]:string}} 
 /**
- * Creates a css string from a React CSSProperties object during development. 
+ * Creates a css string from a React CSSProperties object. The style object passed to `useScopedStyleSheet` 
+ * does not get to the browser. It's transpiled into strings before the code gets served to the browser.
  * The function only returns a pre-computed object when your application runs in the browser. 
  * All dirty works (conversion of the styles object to css string) is done before the code gets to the browser.
  * @param styleSheet Styles object.
