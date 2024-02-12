@@ -63,7 +63,7 @@ export function ParseScopedStyleSheet(content:string):string{
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
+                        ruleIdentifier = `s${deviceAssignedName}\${scoped}${variable.slice(1)}`;
                         // Build keys object
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`
                         // Set as a class name
@@ -73,7 +73,7 @@ export function ParseScopedStyleSheet(content:string):string{
                         variable = excapeRegexChars({
                             regexp:/['`"]/g, text: ruleIdentifier, prefix:'\\'
                         });
-                        ruleIdentifier = `s${deviceAssignedName}${variable.slice(1)}\${scoped}`;
+                        ruleIdentifier = `s${deviceAssignedName}\${scoped}${variable.slice(1)}`;
                         // Build keys object
                         keyRefs = `${keyRefs}"${variable}":\`${ruleIdentifier}\`,`;
                          // Set as a id
