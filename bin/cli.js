@@ -20,8 +20,7 @@ try {
 }
 if(uniqueDeviceId === '=10001'){
     try {
-        uniqueDeviceId = crypto
-          .createHash("shake256", { outputLength: 3 })
+        uniqueDeviceId = createHash("shake256", { outputLength: 3 })
           .update(`${Math.random()}${Date.now()}${Math.random()}`)
           .digest("hex");
       } catch (error) {
@@ -34,8 +33,11 @@ if(uniqueDeviceId === '=10001'){
 }
 
 const [source,rootDirectory] = argv;
+
 if(source === '--setup' && rootDirectory === 'react'){
+    // Adds the configuartion to the webpack config dynamically
     const webpack_config_file = join(node_modules,'/react-scripts/config/webpack.config.js');
+    // Config injection code
     const webpack_config_mod = `
     // Keep actual config
     var actualConfig = module.exports;
@@ -57,14 +59,16 @@ if(source === '--setup' && rootDirectory === 'react'){
         });
         return config;
     }
-    /* This is a circular-posibble workaround for adding webpack configs to create-react-projects */
+    /* This is a posibble workaround for adding webpack configs to create-react-projects */
 
     `;
     appendFileSync(webpack_config_file,webpack_config_mod);
+    // Log success message
     console.log('\x1b[1mStylescope is setup successfuly for your react project\x1b[0m');
     process.exit(0);
 }
 else if(source === '--setup' && rootDirectory === 'device'){
+    // Log feed back
     if(idUpdateSuccessful){
         console.log('\x1b[1mYour project id is updated\x1b[0m');
     }else{
