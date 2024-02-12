@@ -51,7 +51,7 @@ export function useScopedStyleSheet<S=any>(styleSheet:{[K in keyof S]:React.CSSP
  * **Do not forget to name your variable `scoped`**
  * 
  * @example 
- *  const App = ()=>{
+ *  const App = ()=>{ 
  *      // Prevent regeneration of scoped name on re-render
  *      const scoped = useMemo(()=>getScopedName('App'));
  *      // rest of your code...
