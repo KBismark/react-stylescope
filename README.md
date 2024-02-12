@@ -1,3 +1,5 @@
+![NPM Version](https://img.shields.io/npm/v/react-stylescope) ![GitHub License](https://img.shields.io/github/license/KBismark/react-stylescope) 
+
 # react-stylescope
 Component based styling for react. Write styles that are scoped to the components where they are created. 
 A react implementation of the `@scope` CSS at-rule with support for all browsers that can run JavaScript. 
