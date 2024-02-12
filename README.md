@@ -1,4 +1,4 @@
-# react-scoped-styles
+# react-stylescope
 Component based styling for react. Write styles that are scoped to the components where they are created. 
 A react implementation of the `@scope` CSS at-rule with support for all browsers that can run JavaScript. 
 
@@ -15,7 +15,7 @@ styles with auto completions out of the box than writing as strings?
 All you will need to do is `npm install react-stylescope`   
 
 Write your style-scopped component.    
-```ts
+```tsx
 import { useScopedStyleSheet, getScopedName, ScopedStyleSheets } from 'react-stylescope'
 
 type CardProps = {backgroundColor: 'white'|'blue',caption:string}
@@ -45,11 +45,11 @@ const Card = ({backgroundColor, caption}: CardProps)=>{
 
 ```    
 
-Now from the above component, Team A and Team B can use their desired color for background with anymore worries. 
+Now from the above component, Team A and Team B can use their desired color for background without anymore worries. 
 
 And, relax. The style object passed to `useScopedStyleSheet` does not get to the browser. Hurray! It's transpiled 
 into strings before the code gets served to the browser. You get what I'm heading to right? Write the styles with 
-code completions and it's converted into strings for you. No more pain writing css in strins.    
+code completions and it's converted into strings for you. No more pain writing css in strings.    
 
 ## How to use react-stylescope
 After installation, if the project was created with `create-react-app` navigate to the project directory and run 
@@ -71,7 +71,8 @@ That is all to configure.
 
 ### getScopedName
 > Retuens a `scoped` name unique to the calling component. The value returned 
-> must be stored in a variable named `scoped`. **This is a requirement**    
+> must be stored in a variable named `scoped`. **This is a requirement**  
+>  
 > **@param** `name` A unique name for the component. It may be the name of the component.    
 > 
 > **Do not forget to name your variable `scoped`**
@@ -94,10 +95,12 @@ That is all to configure.
 > does not get to the browser. It's transpiled into strings before the code gets served to the browser. 
 > The function only returns a pre-computed object when your application runs in the browser.     
 > All dirty works (conversion of the styles object to css string) is done before the code gets to the browser.    
-> **@param** `styleSheet` Styles object.
+>    
+> **@param** `styleSheet` Styles object.    
+>
 > **@param** `marker` Pass the `scoped` variable here. Anything other than the varible named `scoped` won't work. 
 > 
-> ```js
+> ```jsx
 > const App = ()=>{
 >      const [ theme, setTheme ] = useState('light')
 >      // Prevent regeneration of new scoped name on re-render
@@ -129,7 +132,7 @@ In your style objects passed to `useScopedStyleSheet`, when setting the values d
 > 
 > The following are wrong ❌ when setting style object values
 >
-> **Rule 1**
+> **Rule 1**    
 > This is wrong.
 > ```js
 > const styleObject = { /*...*/ };
