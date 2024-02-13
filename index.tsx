@@ -1,5 +1,5 @@
 
-import React from "react";
+import {createElement} from "react";
 
 const scopedNames:{[k:string]:number} = {};
 const leastNumber = -99999999;
@@ -71,9 +71,9 @@ type ScopedStyleSheetProps = {
 /**
  * Renders a style element with your style sheet.    
  * @param props.styles Pass the style sheet to the styles prop
+ * 
+ * @returns {JSX.Element}
  */
-export class ScopedStyleSheets extends React.Component<ScopedStyleSheetProps>{
-    render(): React.ReactNode {
-        return React.createElement("style", null, this.props.styles) as any
-    }
+export const ScopedStyleSheets = ({styles}:ScopedStyleSheetProps)=>{
+    return createElement("style", null, styles) as JSX.Element;
 }
