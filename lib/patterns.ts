@@ -32,7 +32,7 @@ try {
 
 // RegExp to match scoped style sheets
 export const mustPreceed = `(?<=(${nonBreakingCharactersObject.all.map(excapeRegexChars).join('|')}|[^\S])useScopedStyleSheet\\s*\\(\\s*{)`;
-export const mustFollow = `(?=}\\s*,\\s*(scoped)\\s*\\))`;
+export const mustFollow = `(?=}\\s*,\\s*(scoped).*?\\))`;
  export const useScopedStyleSheetPattern = RegExp(`(${mustPreceed}(.*?))${mustFollow}`,'gs')
   
 // Strings pattern
