@@ -1,8 +1,8 @@
 #! /usr/bin/env node
 
-import {appendFileSync,readFileSync,writeFileSync} from 'fs';
-import {join} from 'path'
-import {createHash} from 'crypto';
+const {appendFileSync,readFileSync,writeFileSync} =  require('fs');
+const {join} = require('path')
+const {createHash} = require('crypto');
 
 const argv = process.argv.slice(2);
 if (argv.length !== 2) {
@@ -16,9 +16,9 @@ let idUpdateSuccessful = false;
 try {
     uniqueDeviceId = readFileSync(join(node_modules,'/react-stylescope/device.txt'),'utf8');
 } catch (error) {
-    uniqueDeviceId = '=10001'
+    uniqueDeviceId = '10001'
 }
-if(uniqueDeviceId === '=10001'){
+if(uniqueDeviceId === '10001'){
     try {
         uniqueDeviceId = createHash("shake256", { outputLength: 3 })
           .update(`${Math.random()}${Date.now()}${Math.random()}`)
