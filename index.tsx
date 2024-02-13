@@ -72,7 +72,7 @@ type ScopedStyleSheetProps = {
  * Renders a style element with your style sheet.    
  * @param props.styles Pass the style sheet to the styles prop
  * 
- * @returns {JSX.Element}
+ * @returns {JSX.Element} 
  */
 export const ScopedStyleSheets = ({styles}:ScopedStyleSheetProps)=>{
     return createElement("style", null, styles) as JSX.Element;
