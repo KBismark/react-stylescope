@@ -1,9 +1,9 @@
-// import {test,expect} from 'jest';
+
 const { 
     commentsPattern, useScopedStyleSheetPattern, dynamicInjectsPattern, 
     individualRulePattern, ruleIdentifierHeadPattern, 
     stringsWithoutTemplateLiterals, styleRulePattern, stringsPattern 
-} = require("../lib/patterns");
+} = require("../dist/lib/patterns");
 
 const sampleCode = require('fs').readFileSync(
     require('path').join(__dirname,'./sample.code.txt'),
@@ -13,16 +13,20 @@ const sampleCode = require('fs').readFileSync(
 describe('Patterns Test',()=>{
     const match = (regexp)=> sampleCode.match(regexp);
 
+    it("Matches a comments in code",()=>{
+        expect(sampleCode).toMatch(commentsPattern)
+    })
+
+    it("Matches a strings in code",()=>{
+        expect(sampleCode).toMatch(stringsPattern)
+    })
+
    describe("Checks if comments are matched correctlly",()=>{
     const matches = match(commentsPattern)
      
     const isReallyComment  = (comment)=>{
         return (comment.startsWith('//')&&comment.endsWith('\n'))||(comment.startsWith('/*')&&comment.endsWith('*/'))
     }
-
-    it("Matches a comments in code",()=>{
-        expect(sampleCode).toMatch(commentsPattern)
-    })
 
     it('Checks if the first comment matched was right',()=>{
         expect(matches[0]).toEqual(expect.stringMatching(new RegExp('^\\/\\/ Primary color')));
@@ -72,10 +76,6 @@ describe('Patterns Test',()=>{
 
         return isString;
     }
-
-    it("Matches a strings in code",()=>{
-        expect(sampleCode).toMatch(stringsPattern)
-    })
 
     it('Checks if the first string matched was right',()=>{
         expect(matches[0]).toBe("'rgb(0,0,0)'");

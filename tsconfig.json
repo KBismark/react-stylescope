@@ -5,7 +5,7 @@
       "allowJs": true,
       "declaration": true,
       "target": "es6",
-      "module": "ES2022",
+      "module": "commonjs",
       "noImplicitAny": true,
       "outDir": "dist",
       "rootDir": ".",
