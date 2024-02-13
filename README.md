@@ -66,12 +66,12 @@ Else, add the code below to the end of the `module.rules` array in the `webpack.
 }
 
 ```  
-## Using a Vite?
+## Using Vite?
 Import the `ScopedStyleVitePlugin` and add to the plugins array in the `vite.config.js` file 
 and run `npx stylescope --setup device`  
 
 ```js
-import { ScopedStyleVitePlugin } from "react-stylescope/dist/lib/loader";
+import { ScopedStyleVitePlugin } from "react-stylescope/dist/lib/vite-loader";
 
 // A possible config may looked like this
 export default defineConfig({
