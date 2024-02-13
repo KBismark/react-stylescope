@@ -1,6 +1,6 @@
-![NPM Version](https://img.shields.io/npm/v/react-stylescope) ![GitHub License](https://img.shields.io/github/license/KBismark/react-stylescope) 
 
-# react-stylescope
+# react-stylescope ![NPM Version](https://img.shields.io/npm/v/react-stylescope) ![GitHub License](https://img.shields.io/github/license/KBismark/react-stylescope)     
+
 Component based styling for react. Write styles that are scoped to the components where they are created. 
 A react implementation of the `@scope` CSS at-rule with support for all browsers that can run JavaScript. 
 
@@ -66,6 +66,19 @@ Else, add the code below to the end of the `module.rules` array in the `webpack.
 }
 
 ```  
+## Using a Vite?
+Import the `ScopedStyleVitePlugin` and add to the plugins array in the `vite.config.js` file 
+and run `npx stylescope --setup device`  
+
+```js
+import { ScopedStyleVitePlugin } from "react-stylescope/dist/lib/loader";
+
+// A possible config may looked like this
+export default defineConfig({
+  plugins: [react(), ScopedStyleVitePlugin()] // Added to the plugin array
+});
+
+```
 
 That is all to configure.    
 
