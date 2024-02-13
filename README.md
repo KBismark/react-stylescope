@@ -85,7 +85,7 @@ That is all to configure.
 ## API documentation 
 
 ### getScopedName
-> Retuens a `scoped` name unique to the calling component. The value returned 
+> Returns a `scoped` name unique to the calling component. The value returned 
 > must be stored in a variable named `scoped`. **This is a requirement**  
 >  
 > **@param** `name` A unique name for the component. It may be the name of the component.    
@@ -95,7 +95,7 @@ That is all to configure.
 > ```js 
 >  const App = ()=>{
 >      // Prevent regeneration of new scoped name on re-render
->      const scoped = useMemo(()=>getScopedName('App'));
+>      const scoped = useMemo(()=>getScopedName('App'),[]);
 >      // rest of your code...
 > }
 >
@@ -118,15 +118,16 @@ That is all to configure.
 > ```jsx
 > const App = ()=>{
 >      const [ theme, setTheme ] = useState('light')
+>      const color = `${theme==='light'?'black':'white'}`;
 >      // Prevent regeneration of new scoped name on re-render
->      const scoped = useMemo(()=>getScopedName('App'));
+>      const scoped = useMemo(()=>getScopedName('App'),[]);
 >      // Get keys and style sheet
 >      const { keys, sheet } = useScopedStyleSheet({
 >          '.container':{
 >              opacity: 0.9,
 >              margin: '10px',
 >              // Dynamic values must be set inside template literals
->              color: `${theme==='light'?'black':'white'}`
+>              color: `${color}`
 >          }
 >      },scoped)
 >      // rest of your code...
